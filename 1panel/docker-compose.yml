@@ -16,11 +16,8 @@ services:
       labels:
          createdBy: Apps
 
-## 默认端口：100863
+## 默认端口：10086
 ## 默认账户：1panel
 ## 默认密码：1panel_password
-## 我的账户：admin
-## 默认密码：小孩名加生(全部小写)
 ## 默认入口：entrance
-## http://10.10.10.251:10086/entrance
-## 备份目录：/mnt/mydisk/home/1panel/config/1panel/backup/system_snapshot
+## http://10.10.10.88:10086/entrance
