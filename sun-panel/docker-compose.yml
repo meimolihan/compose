@@ -1,0 +1,20 @@
+services:
+   sun-panel:
+      image: hslr/sun-panel:1.6.1
+      container_name: sun-panel
+      restart: always
+      ports:
+         - 3002:3002
+      volumes:
+         - ./config:/app/conf
+         - /:/host
+         - /var/run/docker.sock:/var/run/docker.sock
+      network_mode: bridge
+
+   # 导航页 sun-panel
+   # 默认账户：admin@sun.cc 
+   # 默认密码：12345678
+   # docker版Sun-Panel重置第一个管理员的密码
+   # sh命令：docker exec -it sun-panel bash
+   # sh命令：./sun-panel -password-reset
+   # 更新地址：https://github.com/hslr-s/sun-panel/releases
