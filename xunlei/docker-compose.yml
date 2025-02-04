@@ -1,0 +1,13 @@
+services:
+    xunlei: ## 服务名称（可自定义）
+        container_name: xunlei  ## 容器名称（可自定义）
+        image: cnk3x/xunlei ## 镜像版本
+        restart: unless-stopped ## 重启策略
+        network_mode: bridge ## 桥接网络
+        ports:
+            - 2345:2345
+        volumes:
+            - ./config:/xunlei/data ## 配置文件夹
+            - /mnt/ARS2-NFS/downloads/xunlei:/xunlei/downloads ## 下载文件夹
+        privileged: true ##  当设置为true时，表示容器将拥有主机上的特权，即具有主机上的 root 权限。
+        hostname: mynas ## 设置容器的主机名为 "mynas"
