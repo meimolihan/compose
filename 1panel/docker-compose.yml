@@ -1,0 +1,26 @@
+services:
+   1panel: ## 服务名称（可自定义）
+      container_name: 1panel ## 容器名称（可自定义）
+      image: moelin/1panel:latest ## 镜像版本
+      restart: always ## 重启策略
+      network_mode: bridge ## 桥接网络
+      ports:
+         - 10086:10086
+      volumes:
+         - /var/run/docker.sock:/var/run/docker.sock
+         - ./config/volumes:/var/lib/docker/volumes
+         - ./config:/opt
+         - /mnt:/mnt
+      environment:
+         - TZ=Asia/Shanghai
+      labels:
+         createdBy: Apps
+
+## 默认端口：100863
+## 默认账户：1panel
+## 默认密码：1panel_password
+## 我的账户：admin
+## 默认密码：小孩名加生(全部小写)
+## 默认入口：entrance
+## http://10.10.10.251:10086/entrance
+## 备份目录：/mnt/mydisk/home/1panel/config/1panel/backup/system_snapshot
