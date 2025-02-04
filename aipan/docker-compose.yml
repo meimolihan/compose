@@ -1,0 +1,12 @@
+services:
+   aipan:
+      image: fooololo/aipan-netdisk-search:latest
+      container_name: aipan
+      network_mode: bridge
+      restart: unless-stopped
+      ports:
+         - 5055:3000
+      logging:
+         options:
+            max-size: 5m
+            max-file: "5"
