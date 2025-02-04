@@ -1,0 +1,14 @@
+services:
+   zfile: ## 服务名称（可自定义）
+      container_name: zfile-v4 ## 容器名称（可自定义）
+      image: zhaojun1998/zfile ## 镜像版本
+      restart: always ## 重启策略
+      network_mode: bridge ## 桥接网络
+      ports:
+         - 8000:8080
+      volumes:
+         - ./config/db:/root/.zfile-v4/db
+         - ./config/logs:/root/.zfile-v4/logs
+         - ./config/data:/root/.zfile-v4/data  ## 本地分享目录映射
+         - ./config/application.properties:/root/application.properties
+         - /mnt:/mnt  ## 本地目录映射
