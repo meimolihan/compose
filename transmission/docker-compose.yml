@@ -1,0 +1,25 @@
+services:
+    transmission: # Tm下载器
+        image: linuxserver/transmission:latest   ## 镜像名称
+        container_name: transmission    ## 容器名，可自定义
+        restart: unless-stopped    ## 启动选项
+        environment:
+            - PUID=1000
+            - PGID=1000
+            - TZ=Asia/Shanghai
+            - TRANSMISSION_WEB_HOME=/transmission-web-control/web
+            - USER=admin ## 网页登陆用户名
+            - PASS=yifan0719 ## 网页登陆密码
+            - WHITELIST= ## optional
+            - PEERPORT= ## optional
+            - HOST_WHITELIST= ## optional
+        volumes:
+            - ./config:/config ## 配置文件夹
+            - ./downloads :/downloads ## 下载文件夹
+            - ./folder:/watch  ## 监视torrent文件的文件夹
+            - ./transmission-web-control:/transmission-web-control ## 网页UI文件夹
+        ports:
+            - 9091:9091   ## 冒号左边的9091可以改成任意,冒号右边是本docker镜像里的端口
+            - 51413:51413
+            - 51413:51413/udp
+        network_mode: bridge   ## 使用桥接网络模式
