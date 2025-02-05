@@ -1,0 +1,68 @@
+services:
+    halo: ## 服务名称（可自定义）
+        container_name: halo ## 容器名称（可自定义）
+        image: halohub/halo:2.20.14 ## 镜像版本
+        restart: always ## 重启策略
+        depends_on:
+            halodb:
+                condition: service_healthy   # 依赖于 halodb 服务，等待其健康状态
+        networks:
+            halo_network:   # 使用自定义网络 halo_network
+        volumes:
+            - ./config/halo2:/root/.halo2   # 映射配置文件到容器内
+        ports:
+            - 8090:8090   # 映射容器端口到主机端口
+        healthcheck:
+            test:
+                - CMD
+                - curl
+                - -f
+                - http://localhost:8090/actuator/health/readiness   # 使用 curl 进行健康检查
+            interval: 30s   # 每隔30秒进行一次健康检查
+            timeout: 5s   # 检查超时时间为5秒
+            retries: 5   # 失败后最多尝试5次
+            start_period: 30s   # 启动后等待30秒再进行第一次检查
+        command:
+            - --spring.r2dbc.url=r2dbc:pool:mysql://halodb:3306/halo
+            - --spring.r2dbc.username=root
+            # MySQL 的密码，请保证与下方 MYSQL_ROOT_PASSWORD 的变量值一致。
+            - --spring.r2dbc.password=o#DwN&JSa56
+            - --spring.sql.init.platform=mysql
+            # 外部访问地址，请根据实际需要修改
+            - --halo.external-url=https://www.mobufan.eu.org:666
+
+    halodb:   # 个人博客数据库
+        container_name: halodb ## 容器名称（可自定义）
+        image: mysql:8.3.0 ## 镜像版本
+        restart: always ## 重启策略
+        networks:
+            halo_network: ## 使用自定义网络 halo_network
+        command:
+            - --default-authentication-plugin=caching_sha2_password
+            - --character-set-server=utf8mb4
+            - --collation-server=utf8mb4_general_ci
+            - --explicit_defaults_for_timestamp=true
+        volumes:
+            - ./config/mysql:/var/lib/mysql ## 映射数据库路径到容器内
+            - ./config/mysqlBackup:/data/mysqlBackup ## 映射备份文件保存路径到容器内
+        ports:
+            - 3306:3306
+        healthcheck:
+            test:
+                - CMD
+                - mysqladmin
+                - ping
+                - -h
+                - 127.0.0.1
+                - --silent
+            interval: 3s  ## 每隔3秒进行一次健康检查
+            retries: 5  ## 失败后最多尝试5次
+            start_period: 30s ## 启动后等待30秒再进行第一次检查
+        environment:
+            # 请修改此密码，并对应修改上方 Halo 服务的 SPRING_R2DBC_PASSWORD 变量值
+            - MYSQL_ROOT_PASSWORD=o#DwN&JSa56
+            - MYSQL_DATABASE=halo
+networks:
+    halo_network: ## 自定义网络 halo_network
+
+# Halo博客_后台地址：http://ip:8090/console
