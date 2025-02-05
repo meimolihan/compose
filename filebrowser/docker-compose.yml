@@ -1,0 +1,20 @@
+services:
+  filebrowser:
+    image: filebrowser/filebrowser:s6
+    restart: unless-stopped
+    ports:
+      - 8880:80
+    volumes:
+      # 映射宿主机的根目录到容器内的/srv，以便filebrowser浏览全盘文件
+      - /:/srv
+      # 将包含filebrowser数据库的文件从主机挂载到容器内，以保持数据持久化
+      - /mnt/mydisk/home/filebrowser/config/database/filebrowser.db:/database/filebrowser.db
+      # 挂载配置文件，使得自定义设置在容器重启后依然生效
+      - ./config/filebrowser.json:/.filebrowser.json
+      - ./config:/config
+    environment:
+      - PUID=0
+      - PGID=0
+
+# 默认用户/密码：admin/admin
+# 更新地址：https://hub.docker.com/r/filebrowser/filebrowser/tags

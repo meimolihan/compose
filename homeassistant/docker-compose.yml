@@ -1,0 +1,13 @@
+services:
+   homeassistant:
+      container_name: homeassistant
+      image: ghcr.io/home-assistant/home-assistant:stable
+      restart: unless-stopped
+      volumes:
+         - ./config:/config
+         - ./localtime:/etc/localtime:ro
+         - ./dbus:/run/dbus:ro
+      environment:
+         - TZ=Asia/Shanghai ## 定义时区 
+      privileged: true
+      network_mode: host

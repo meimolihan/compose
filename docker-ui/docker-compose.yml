@@ -1,0 +1,13 @@
+services:
+   docker-ui:
+      container_name: docker-ui ## 定义容器名称
+      image: jonnyan404/docker-ui ## 镜像名称
+      restart: unless-stopped ## 重启策略
+      network_mode: bridge ## 桥接网络
+      ports:
+         - 8999:8999
+      volumes:
+         - /var/run/docker.sock:/var/run/docker.sock
+
+## 默认的用户名：ginghan
+## 密码： 123456

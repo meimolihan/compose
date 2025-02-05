@@ -1,0 +1,12 @@
+services:
+   music-tag:
+      image: xhongc/music_tag_web:latest
+      container_name: music-tag
+      restart: unless-stopped
+      ports:
+         - 8001:8001
+      volumes:
+         - ./music:/app/media:rw
+         - ./config:/app/data
+
+## 用户名和密码：admin/admin

@@ -1,0 +1,15 @@
+services:
+   syncthing:
+      image: syncthing/syncthing
+      volumes:
+         - /mnt:/mnt:rslave
+         - /mnt/mydisk/home/syncthing:/var/syncthing
+      ports:
+         - 21027:21027/udp
+         - 22000:22000/udp
+         - 22000:22000/tcp
+         - 8384:8384
+      environment:
+         - TZ=Asia/Shanghai
+      restart: unless-stopped
+      container_name: syncthing

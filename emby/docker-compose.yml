@@ -1,0 +1,24 @@
+services:
+   emby: ## 服务名称（可自定义）
+      container_name: emby ## 容器名称（可自定义）
+      image: amilys/embyserver:latest ## 镜像名称
+      restart: always ## 重启策略
+      network_mode: bridge ## 桥接网络
+      ports:
+         - 8896:8096/TCP
+      volumes:
+         - ./config:/config:/volume1/docker/emby/config ## 配置文件目录
+         - ./metadata:/volume1/docker/emby/metadata
+         - ./config/hosts:/etc/hosts ## hosts文件
+         - ./emby-crx:/system/dashboard-ui/emby-crx ## ui-js目录
+         - /mnt/ARS2-NFS/nas/link:/volume2/video ## 媒体目录
+      deploy:
+         resources:
+            limits:
+               memory: 8G
+      environment:
+         UID: 0
+         GID: 0
+         GIDLIST: 100,101
+      devices:
+         - /dev/dri:/dev/dri

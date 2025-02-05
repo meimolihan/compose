@@ -1,0 +1,13 @@
+services:
+  dockge:
+    image: louislam/dockge:1
+    restart: always
+    ports:
+      - 5001:5001
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./config:/app/data
+      - /mnt/mydisk/home:/opt/stacks # 映射我的堆栈目录
+    environment:
+      # 告诉Dockge容器内部堆栈路径，上面映射到了/mnt/mydisk/home
+      - DOCKGE_STACKS_DIR=/opt/stacks

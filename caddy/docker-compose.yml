@@ -1,0 +1,13 @@
+services:
+   caddy:
+      image: caddy:latest
+      restart: always
+      volumes:
+         - ./html/:/usr/share/caddy/
+         - ./caddy:/etc/caddy/caddy
+      ports:
+         - 6663:443/udp
+         - 6663:443
+         - 86:80
+      container_name: caddy
+

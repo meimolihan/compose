@@ -1,0 +1,49 @@
+services:
+  nginx:
+    image: nginx
+    ports:
+      - "8223:80"    # 左边可以改成任意没使用的端口
+    restart: always
+    environment:
+      - TZ=Asia/Shanghai
+    volumes:
+      - ./typecho:/var/www/html
+      - ./nginx:/etc/nginx/conf.d
+      - ./logs:/var/log/nginx
+    depends_on:
+      - php
+    networks:
+      - web
+
+  php:
+    build: php
+    restart: always
+    expose:
+      - "9000"       # 不暴露公网，故没有写9000:9000
+    volumes:
+      - ./typecho:/var/www/html
+    environment:
+      - TZ=Asia/Shanghai
+    depends_on:
+      - mysql
+    networks:
+      - web
+
+  mysql:
+    image: mysql:5.7
+    restart: always
+    environment:
+      - TZ=Asia/Shanghai
+    expose:
+      - "3306"  # 不暴露公网，故没有写3306:3306
+    volumes:
+      - ./mysql/data:/var/lib/mysql
+      - ./mysql/logs:/var/log/mysql
+      - ./mysql/conf:/etc/mysql/conf.d
+    env_file:
+      - mysql.env
+    networks:
+      - web
+
+networks:
+  web:

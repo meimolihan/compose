@@ -1,0 +1,31 @@
+services:
+   pihole: ## 服务名称（可自定义）
+      container_name: pihole ## 容器名称（可自定义）
+      image: pihole/pihole:latest ## 镜像版本
+      restart: always ## 重启策略
+      network_mode: bridge ## 桥接网络
+      ports:
+         - 53:53/tcp
+         - 53:53/udp
+         - 67:67/udp
+         - 19000:80/tcp
+      volumes:
+         - ./config/etc-pihole:/etc/pihole
+         - ./config/etc-dnsmasq.d:/etc/dnsmasq.d
+      environment:
+         - TZ=Asia/Shanghai
+         - WEBPASSWORD=yifan0719 ## root账户密码
+      cap_add:
+         - NET_ADMIN 
+
+      ## 添加新的广告列表
+      ## https://sysctl.org/cameleon/hosts
+      ## https://anti-ad.net/domains.txt
+      ## https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts
+      ## https://gitlab.com/quidsup/notrack-blocklists/raw/master/notrack-blocklist.txt
+      ## 更多信息请访问 
+      ## https://github.com/pi-hole/docker-pi-hole/
+      ## https://docs.pi-hole.net/
+      ## 后台安全入口地址
+      ## http://ip:19000/admin/index.php
+      ## 将客户机DNS修改为本机ip即可

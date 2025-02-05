@@ -1,0 +1,10 @@
+services:
+  iptv-api:
+    image: guovern/iptv-api
+    container_name: iptv-api
+    restart: unless-stopped
+    ports:
+      - 8755:8000
+    volumes:
+      - ./config:/iptv-api/config
+      - ./output:/iptv-api/output

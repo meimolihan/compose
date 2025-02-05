@@ -1,0 +1,17 @@
+services:
+   allinone:
+      image: youshandefeiyang/allinone
+      container_name: allinone
+      ports:
+         - 35455:35455
+      privileged: true
+      restart: unless-stopped
+
+## 每天凌晨两点，更新allinone容器
+   watchtower:
+      command: allinone -c --schedule "0 0 2 * * *"
+      image: containrrr/watchtower
+      volumes:
+         - /var/run/docker.sock:/var/run/docker.sock
+      restart: unless-stopped
+      container_name: watchtower

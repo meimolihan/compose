@@ -1,0 +1,13 @@
+services:
+   toolbox: ## 服务名称（可自定义）
+      container_name: toolbox ## 定义容器名称
+      image: cleverest/toolbox ## 镜像名称
+      restart: always ## 重启策略
+      network_mode: bridge ## 桥接网络
+      ports:
+         - 8383:80
+      environment:
+         - password=admin
+         - username=yifan0719
+         - TZ=Asia/Shanghai
+

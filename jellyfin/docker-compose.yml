@@ -1,0 +1,26 @@
+services:
+   jellyfin: ## 服务名称（可自定义）
+      container_name: jellyfin ## 容器名称（可自定义）
+      image: nyanmisaka/jellyfin:latest ## 镜像版本
+      restart: unless-stopped ## 重启策略
+      network_mode: bridge ## 桥接网络
+      ports:
+         - 8096:8096
+      volumes:
+         - ./config:/config
+         - ./cache:/cache
+         - ./config/hosts:/etc/hosts
+         - /mnt/ARS2-NFS/nas/link:/media ## 媒体文件夹
+         - /mnt:/mnt:rslave
+      privileged: true
+      environment:
+         - TZ=Asia/Shanghai
+         - PUID=0
+         - PGID=0
+      devices:
+         - /dev/dri:/dev/dri
+
+## 这是Debian终端命令创建docker-compose.yml文件
+## nyanmisaka镜像linux镜像：nyanmisaka/jellyfin:latest
+## nyanmisaka镜像ARS2镜像: nyanmisaka/jellyfin:latest-rockchip
+## 官方镜像：jellyfin/jellyfin:latest（中文乱码）

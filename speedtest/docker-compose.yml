@@ -1,0 +1,10 @@
+services:
+   speedtest-go-zh:
+      container_name: speedtest
+      image: chishin/speedtest-go-zh:latest
+      restart: always
+      network_mode: bridge ## 桥接网络
+      ports:
+         - 7878:8989
+      volumes:
+         - ./config:/app/config

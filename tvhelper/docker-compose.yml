@@ -1,0 +1,19 @@
+services:
+   box: ## 服务名称（可自定义）
+      container_name: tvhelper ## 容器名称（可自定义）
+      image: wukongdaily/box:latest ## 镜像版本
+      restart: unless-stopped ## 重启策略
+      network_mode: bridge ## 桥接网络
+      ports:
+         - 2288:80
+         - 2299:22
+      environment:
+         - PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/lib/android-sdk/platform-tools
+      volumes:
+         - ./data:/tvhelper/shells/data
+
+## 容器内运行的就是alpine linux系统。
+## ssh用户名和密码分别是：root和password
+## ssh端口：2299
+## shell终端执行命令：./tv.sh
+## apk放在 ./data 目录

@@ -1,0 +1,10 @@
+services:
+  gopeed:
+    image: liwei2633/gopeed
+    container_name: gopeed
+    restart: always
+    ports:
+      - 6600:9999
+    volumes:
+      - ./config:/app/storage # 映射数据目录
+      - /mnt/downloads/gopeed:/app/Downloads # 映射下载目录

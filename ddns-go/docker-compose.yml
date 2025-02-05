@@ -1,0 +1,10 @@
+services:
+  ddns-go: ## 服务名称（可自定义）
+    container_name: ddns-go ## 容器名称（可自定义）
+    image: jeessy/ddns-go:latest ## 镜像版本
+    restart: always ## 重启策略
+    network_mode: bridge ## 桥接网络
+    ports:
+            - 9876:9876
+    volumes:
+      - ./data:/root

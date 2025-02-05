@@ -1,0 +1,10 @@
+services:
+   jd_server:
+      image: sleikang/media_server_tools:latest
+      container_name: media_server_tools
+      environment:
+         - TZ=Asia/Shanghai
+      volumes:
+         - /mnt/mydisk/home/media_server_tools/log:/app/log ## 日志文件目录
+         - /mnt/mydisk/home/media_server_tools/config:/app/config  ## 配置文件目录
+      restart: always

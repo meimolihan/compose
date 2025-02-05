@@ -1,0 +1,35 @@
+services:
+   go_webdav:
+      image: 117503445/go_webdav
+      container_name: go_webdav
+      restart: unless-stopped
+      volumes:
+         - /mnt:/mnt
+      environment:
+         - dav=/ARS2,/mnt/ARS2-NFS,admin,yifan0719,false;/Aliyun,/mnt/ARS2-NFS/阿里云盘,null,null,false;/NAS,/mnt/ARS2-NFS/NAS,admin,yifan0719,true
+      ports:
+         - 8008:80
+
+## volumes：映射路径：
+## - /mnt等于/mnt
+
+## 我共享的目录1
+## /ARS2,/mnt/-1,admin,yifan0719,false  解释如下:
+## /ARS2                       ：网页看到的名字，可自定义
+## /mnt/ARS2-NFS      ：等于 OpenWrt上的【/mnt/-1】目录
+## admin,yifan0719     ：用户名和密码
+## false                          ：可读写权限  【true只读，网页可下载】   【 false读写】
+
+## 我共享的目录2
+## /阿里云盘,/mnt/-1/阿里云盘,null,null,false  解释如下:
+## /Aliyun                        ：网页看到的名字，可自定义
+## /mnt/ARS2-NFS/阿里云盘    ：等于OpenWrt上的【/mnt/-1/阿里云盘】目录
+## null,null                       ：无需用户名和密码
+## false                             ：可读写权限    【true只读，网页可下载】   【 false读写】
+
+## 我共享的目录4
+## /NAS,/mnt/-1/NAS,admin,yifan0719,true  解释如下:
+## /NAS                        ：网页看到的名字，可自定义
+## /mnt/ARS2-NFS     ：等于 OpenWrt上的【/mnt/-1】目录
+## admin,yifan0719    ：用户名和密码
+## true                          ：true只读  【true只读，网页可下载】   【 false读写】

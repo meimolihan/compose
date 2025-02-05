@@ -1,0 +1,61 @@
+services:
+## chinesesubfinder字幕
+    chinesesubfinder: ## 服务名称（可自定义）
+        container_name: chinesesubfinder ## 容器名称（可自定义）
+        image: allanpk716/chinesesubfinder:latest-lite ## 镜像版本
+        restart: always ## 重启策略
+        network_mode: bridge ## 桥接网络
+        ports:
+            - 19035:19035
+            - 19037:19037
+        volumes:
+            - ./chinesesubfinder:/config
+            - /mnt/ARS2-NFS/nas:/media
+        environment:
+            - PUID=0
+            - PGID=0
+            - PERMS=true
+            - TZ=Asia/Shanghai
+            - UMASK=022
+        hostname: chinesesubfinder
+        logging:
+            driver: json-file
+            options:
+                max-size: 100m
+## chinesesubfinder获取密钥：https://secure.assrt.net/usercp.php
+
+## jackett索引器
+    jackett: ## 服务名称（可自定义）
+        container_name: jackett ## 容器名称（可自定义）
+        image: linuxserver/jackett ## 镜像版本
+        restart: unless-stopped ## 重启策略
+        network_mode: bridge ## 桥接网络
+        ports:
+            - 9117:9117
+        volumes:
+            - ./Jackett:/config/Jackett ## 配置文件
+            - /mnt/ARS2-NFS/nas/downloads:/downloads
+        environment:
+            - PUID=0
+            - PGID=0
+            - TZ=Asia/Shanghai
+            - AUTO_UPDATE=true
+
+## nastools视频刮削器
+    nastools:
+        container_name: nastools ## 容器名称（可自定义）
+        image: diluka/nas-tools:2.9.1 ## 镜像名称
+        restart: unless-stopped ## 重启策略
+        network_mode: bridge ## 桥接网络
+        ports:
+            - 3000:3000
+        volumes:
+            - ./config:/config
+            - ./config/hosts:/etc/hosts
+            - /mnt/ARS2-NFS/nas:/media
+            - /mnt:/mnt:rslave
+        environment:
+            - PUID=0
+            - PGID=0
+            - TZ=Asia/Shanghai
+            - NASTOOL_AUTO_UPDATE=false

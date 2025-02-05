@@ -1,0 +1,16 @@
+services:
+   app: ## 服务名称（可自定义）
+      container_name: npm ## 定义容器名称
+      image: jc21/nginx-proxy-manager:latest ## 镜像名称
+      restart: always ## 重启策略
+      network_mode: bridge ## 桥接网络
+      ports:
+         - 1180:80
+         - 81:81
+         - 4443:443
+      volumes:
+         - ./config/data:/data
+         - ./config/letsencrypt:/etc/letsencrypt
+
+## 默认用户名Email: admin@example.com
+## 默认密码Password: changeme

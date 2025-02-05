@@ -1,0 +1,12 @@
+services:
+   it-tools: ## 服务名称（可自定义）
+      container_name: it-tools ## 容器名称（可自定义）
+      image: qingfeng2336/it-tools:latest ## 镜像版本
+      restart: always ## 重启策略
+      network_mode: bridge ## 桥接网络
+      ports:
+         - 8088:80
+      environment:
+         - PUID=0
+         - PGID=0
+         - TZ=Asia/Shanghai

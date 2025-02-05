@@ -1,0 +1,8 @@
+services:
+   desktop:
+      image: lyswhut/any-listen-web-server
+      ports:
+         - 8282:9500
+      volumes:
+         - ./data:/server/data
+         - ./music:/music

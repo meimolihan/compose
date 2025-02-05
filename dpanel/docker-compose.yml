@@ -1,0 +1,19 @@
+services:
+   dpanel:
+      container_name: dpanel ## 定义容器名称
+      image: dpanel/dpanel:latest  ## 镜像名称
+      restart: unless-stopped ## 重启策略
+      network_mode: bridge ## 桥接网络
+      ports:
+         - 8807:8080
+      environment:
+         - INSTALL_PASSWORD=admin
+         - INSTALL_USERNAME=admin
+         - APP_NAME=dpanel
+      volumes:
+         - ./config:/dpanel
+         - /var/run/docker.sock:/var/run/docker.sock
+      tty: true
+      stdin_open: true
+
+## 默认账户密码：admin/admin

@@ -1,0 +1,13 @@
+services:
+   app:
+      container_name: kodbox ## 定义容器名称
+      image: kodcloud/kodbox ## 镜像名称
+      restart: always ## 重启策略
+      network_mode: bridge ## 桥接网络
+      ports:
+         - 5366:80
+      volumes:
+         - ./config:/var/www/html   ## 映射kodbox配置文件目录
+         - ./data:/data
+      environment:
+         - TZ=Asia/Shanghai

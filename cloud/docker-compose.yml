@@ -1,0 +1,35 @@
+services:
+   cloudreve:
+      container_name: cloudreve ## 定义容器名称
+      image: cloudreve/cloudreve:latest ## 镜像名称
+      restart: unless-stopped ## 重启策略
+      network_mode: bridge ## 桥接网络
+      ports:
+         - 5212:5212
+      volumes:
+         - /mnt:/data
+         - ./file:/cloudreve/uploads  ## 上传文件目录
+         - ./cloudreve/conf.ini:/cloudreve/conf.ini
+         - ./cloudreve/cloudreve.db:/cloudreve/cloudreve.db
+         - ./cloudreve/avatar:/cloudreve/avatar
+      depends_on:
+         - aria2
+
+   aria2:
+      container_name: aria2 ## 定义容器名称
+      image: p3terx/aria2-pro ## 镜像名称
+      restart: unless-stopped ## 重启策略
+      volumes:
+         - ./aria2/config:/config
+         - /mnt:/data
+      environment:
+         - RPC_SECRET= KEJILION
+         - RPC_PORT=6800
+volumes:
+   temp_data:
+      driver: local
+      driver_opts:
+         type: none
+         device: $PWD/data
+         o: bind
+

@@ -1,0 +1,6 @@
+services:
+   hivision_idphotos:
+      container_name: idphotos
+      image: linzeyi/hivision_idphotos
+      ports:
+         - 7860:7860

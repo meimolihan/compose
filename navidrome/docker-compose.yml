@@ -1,0 +1,16 @@
+services:
+   navidrome:
+      image: deluan/navidrome:latest
+      container_name: navidrome
+      restart: unless-stopped
+      network_mode: bridge
+      environment:
+         - ND_SCANNER_EXTRACTOR=ffmpeg
+         - PND_ENABLETRANSCODINGCONFIGGID=true
+         - ND_ENABLESHARING=true
+         - ND_SCANSCHEDULE=1h
+      ports:
+         - 4533:4533
+      volumes:
+         - ./data:/data
+         - /mnt/file/music:/music

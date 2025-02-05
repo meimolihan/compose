@@ -1,0 +1,44 @@
+services:
+  mysql8:
+    image: mysql:8.0 ## 镜像版本
+    container_name: mtab_sql ## 请不要修改(下面有联动)
+    restart: always ## 重启策略
+    ports:
+      - "9201:3306"
+    volumes:
+      - ./mysql:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: mtab ## mysql的root密码
+      MYSQL_DATABASE: mtab ## 数据库名
+      MYSQL_USER: mtab ## 数据库用户名
+      MYSQL_PASSWORD: mtab ## 数据库密码
+      TZ: Asia/Shanghai
+      CHARACTER_SET_SERVER: utf8mb4
+      COLLATION_SERVER: utf8mb4_general_ci
+    networks:
+      - my-network
+
+  mTab: ## 服务名称(可自定义)
+    container_name: mtab ## 容器名称(可自定义)
+    image: itushan/mtab ## 镜像版本
+    restart: always ## 重启策略
+    ports:
+      - "9200:80"
+    volumes:
+      - ./app:/app
+    environment:
+      MYSQL_HOST: mtab_sql ## mysql的容器名请不要修改
+      MYSQL_USER: mtab ## 数据库用户名
+      MYSQL_PORT: 3306 ## 数据库端口
+      MYSQL_PASSWORD: mtab ## 数据库密码
+      MYSQL_DATABASE: mtab ## 数据库名
+      ADMIN_USER: admin ## 安装后默认管理员账号 可以安装后修改
+      ADMIN_PASSWORD: 12345678 ## 安装后默认管理员密码 可以安装后修改
+    depends_on:
+      - mysql8
+    entrypoint: [ "sh", "-c", "sleep 30 && ./start.sh" ] ## 延迟启动，等待mysql启动
+    networks:
+      - my-network
+networks:
+  my-network:
+    driver: bridge

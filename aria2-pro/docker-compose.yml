@@ -1,0 +1,35 @@
+services:
+    aria2-pro:
+        container_name: aria2-pro ## 定义容器名称
+        image: p3terx/aria2-pro ## 镜像名称
+        restart: unless-stopped ## 重启策略
+        network_mode: bridge ## 桥接网络
+        ports:
+            - 6800:6800
+            - 6888:6888
+            - 6888:6888/udp
+        logging:
+            options:
+                max-size: 1m
+        environment:
+            - PUID=0
+            - PGID=0
+            - RPC_SECRET=haoyong ## aria2连接密钥：haoyong
+            - RPC_PORT=6800
+            - LISTEN_PORT=6888
+            - IPV6_MODE=true
+        volumes:
+            - ./config:/config
+            - /mnt/ARS2-NFS/downloads/aria2-pro:/downloads
+
+    ariang:
+        container_name: ariang ## 定义容器名称
+        image: p3terx/ariang ## 镜像名称
+        restart: unless-stopped ## 重启策略
+        network_mode: bridge ## 桥接网络
+        ports:
+            - 6880:6880
+        command: --port 6880 --ipv6
+        logging:
+            options:
+                max-size: 1m

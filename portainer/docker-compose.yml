@@ -1,0 +1,11 @@
+services:
+    portainer: ## 服务名称（可自定义）
+        image: outlovecn/portainer-cn:latest ## 镜像版本
+        container_name: portainer ## 容器名称（可自定义）
+        restart: always ## 重启策略
+        ports:
+            - 9000:9000 ## 冒号:左边的9000可以改成任意,冒号:右边是本docker镜像里的端口
+            - 8000:8000
+        volumes:
+            - ./config:/data
+            - /var/run/docker.sock:/var/run/docker.sock

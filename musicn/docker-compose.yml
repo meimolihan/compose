@@ -1,0 +1,10 @@
+services:
+  musicn:
+    image: ghcr.io/wy580477/musicn-container:latest
+    container_name: musicn
+    restart: always
+    entrypoint: ["/sbin/tini", "--", "msc", "-q"]
+    ports:
+      - "7478:7478"
+    volumes:
+      - ./data:/data

@@ -1,0 +1,14 @@
+services:
+    aliyun-webdav: ## 服务名称（可自定义）
+        container_name: aliyun-webdav ## 容器名称（可自定义）
+        image: messense/aliyundrive-webdav:latest ## 镜像版本
+        restart: unless-stopped ## 重启策略
+        network_mode: bridge ## 桥接网络
+        ports:
+            - 8080:8080
+        volumes:
+            - ./aliyundrive-webdav/:/etc/aliyundrive-webdav/
+        environment:
+            - REFRESH_TOKEN= ## 自己的open token
+            - WEBDAV_AUTH_USER=admin ## 网页登陆用户名
+            - WEBDAV_AUTH_PASSWORD=admin ## 网页登陆密码

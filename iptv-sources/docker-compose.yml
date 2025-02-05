@@ -1,0 +1,6 @@
+services:
+    iptv-sources:
+        image: 'herberthe0229/iptv-sources:latest'
+        ports:
+            - '4000:8080'
+        container_name: iptv-sources
