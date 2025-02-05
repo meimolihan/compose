@@ -1,0 +1,14 @@
+services:
+   toolbox:
+      container_name: tools-ip38 ## 定义容器名称
+      image: cleverest/toolbox ## 镜像名称
+      restart: always ## 重启策略
+      network_mode: bridge ## 桥接网络
+      ports:
+         - 8383:80
+      environment:
+         - password=admin
+         - username=admin
+         - TZ=Asia/Shanghai
+
+## 用户名密码：admin/admin
