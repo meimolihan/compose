@@ -1,6 +1,11 @@
 # docker-compose
 
-## 综合使用方法
+## 下载 compose 配置文件
+```bash
+mkdir -p /mnt/mydisk/home/1panel && wget -c -O /mnt/mydisk/home/1panel/docker-compose.yml https://raw.githubusercontent.com/meimolihan/compose/refs/heads/main/1panel/docker-compose.yml && cat /mnt/mydisk/home/1panel/docker-compose.yml
+```
+
+## 下载 compose 配置文件+拉取运行
 ```bash
 mkdir -p /mnt/mydisk/home/1panel && wget -c -O /mnt/mydisk/home/1panel/docker-compose.yml https://raw.githubusercontent.com/meimolihan/compose/refs/heads/main/1panel/docker-compose.yml && cd /mnt/mydisk/home/1panel && docker-compose up -d
 ```
@@ -9,7 +14,7 @@ mkdir -p /mnt/mydisk/home/1panel && wget -c -O /mnt/mydisk/home/1panel/docker-co
 2. 下载 docker-compose.yml 文件：  `wget -c -O /mnt/mydisk/home/1panel/docker-compose.yml https://raw.githubusercontent.com/meimolihan/compose/refs/heads/main/1panel/docker-compose.yml `
 3. 拉取镜像并运行：`cd /mnt/mydisk/home/1panel && docker-compose up -d`
 
-## 需要修改的地方，以`1panel`为例
+## 需要修改的地方，以 `1panel` 为例
 
 ```bash
 services:
