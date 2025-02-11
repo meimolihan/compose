@@ -1,6 +1,11 @@
 @echo off
 SETLOCAL ENABLEDELAYEDEXPANSION
 
+REM 设置颜色为绿色背景，默认亮白色文字
+COLOR 0A
+CLS
+PROMPT $P$G
+
 REM 定义目标目录
 SET "REPO_PATH=%USERPROFILE%\Desktop\GitHub\compose"
 
