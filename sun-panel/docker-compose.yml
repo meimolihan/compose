@@ -7,7 +7,7 @@ services:
          - 3002:3002
       volumes:
          - ./config:/app/conf
-         - /:/host
+         - /mnt:/mnt ## 映射磁盘目录
          - /var/run/docker.sock:/var/run/docker.sock
       network_mode: bridge
 
