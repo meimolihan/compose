@@ -2,16 +2,25 @@
 color 0A
 
 :MENU
+color 0A
 cls
 echo ==============================
-echo Git 项目管理脚本
+echo         Git 项目管理脚本
 echo ==============================
 echo 1. 检查Git仓库状态
 echo 2. 提交并推送更改
 echo 3. 拉取远程更新
+echo ==============================
 echo 0. 退出
 echo ==============================
-set /p choice=请输入选项（1/2/3/0）： 
+    set "choice="
+    set /p choice="请输入操作编号 (0 - 3): "
+    if not defined choice (
+        echo 输入不能为空，请输入（0 - 3）之间的数字。
+        timeout /t 2 >nul
+		rem 定义要返回的菜单
+        goto menu
+    )
 
 if "%choice%"=="1" goto CHECK_STATUS
 if "%choice%"=="2" goto COMMIT_PUSH
